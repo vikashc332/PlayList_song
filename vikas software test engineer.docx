@@ -1,0 +1,61 @@
+package com.vikas.playlist.songs;
+
+public class PlayList {
+        private String[] songs;
+        private int capacity;
+        private int size;
+
+        public PlayList(int capacity) {
+            this.capacity = capacity;
+            this.songs = new String[capacity];
+            this.size = 0;
+        }
+
+        public void addSong(String song) {
+            if (size == capacity) {
+                removeFirstSong();
+            }
+            songs[size] = song;
+            size++;
+        }
+
+        public String removeFirstSong() {
+            if (size == 0) {
+                return null;
+            }
+            String firstSong = songs[0];
+            for (int i = 0; i < size - 1; i++) {
+                songs[i] = songs[i + 1];
+            }
+            size--;
+            return firstSong;
+        }
+
+        public void printPlaylist() {
+            for (int i = 0; i < size; i++) {
+                System.out.print(songs[i] + " ");
+            }
+            System.out.println();
+        }
+
+        public static void main(String[] args){
+            PlayList playlist = new PlayList(3);
+
+            playlist.addSong("S1");
+            playlist.addSong("S2");
+            playlist.addSong("S3");
+            playlist.printPlaylist(); // Output: S1 S2 S3
+
+            playlist.addSong("S4");
+            playlist.printPlaylist(); // Output: S2 S3 S4
+
+            playlist.addSong("S2");
+            playlist.printPlaylist(); // Output: S3 S4 S2
+
+            playlist.addSong("S1");
+            playlist.printPlaylist(); // Output: S4 S2 S1
+        }
+    }
+
+
+
